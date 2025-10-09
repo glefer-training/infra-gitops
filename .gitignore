@@ -1,2 +1,3 @@
 argocd/apps/metrics-server.yaml
 argocd/apps/external-dns.yaml
+argocd/secrets
