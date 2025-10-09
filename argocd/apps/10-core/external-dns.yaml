@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: argocd
+spec:
+  project: infra
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: external-dns
+    targetRevision: 8.5.1
+    helm:
+      values: |
+        provider: ovh
+        policy: sync
+        txtOwnerId: argocd
+        domainFilters:
+          - example.com
+        sources:
+          - ingress
+        ovh:
+          endpoint: ovh-eu
+          applicationKey: "XXXX"
+          applicationSecret: "YYYY"
+          consumerKey: "ZZZZ"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: external-dns
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
