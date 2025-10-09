@@ -11,6 +11,9 @@ spec:
     targetRevision: 8.5.1
     helm:
       values: |
+        image:
+          registry: registry-1.docker.io
+          repository: bitnamilegacy/external-dns
         provider: ovh
         policy: sync
         txtOwnerId: argocd
