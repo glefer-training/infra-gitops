@@ -23,6 +23,9 @@ spec:
           - ingress
         ovh:
           endpoint: ovh-eu
+          applicationKey: "notused"
+          applicationSecret: "notused"
+          consumerKey: "notused"
         extraEnv:
           - name: OVH_APPLICATION_KEY
             valueFrom:
