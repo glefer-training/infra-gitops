@@ -1,0 +1,85 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    chart: grafana
+    targetRevision: 7.0.19
+    helm:
+      values: |
+        adminPassword: aaa
+        persistence:
+          enabled: true
+          # storageClassName: hcloud-volumes
+          size: 10Gi
+        ingress:
+          enabled: true
+          ingressClassName: nginx
+          annotations:
+            cert-manager.io/cluster-issuer: letsencrypt-production
+            nginx.ingress.kubernetes.io/ssl-redirect: "true"
+          hosts:
+            - grafana.glefer.fr
+          tls:
+            - secretName: grafana-tls
+              hosts:
+                - grafana.glefer.fr
+        datasources:
+          datasources.yaml:
+            apiVersion: 1
+            datasources:
+              - name: Prometheus
+                type: prometheus
+                url: http://prometheus-kube-prometheus-prometheus.monitoring:9090
+                access: proxy
+                isDefault: true
+        dashboardProviders:
+          dashboardproviders.yaml:
+            apiVersion: 1
+            providers:
+              - name: 'default'
+                orgId: 1
+                folder: ''
+                type: file
+                disableDeletion: false
+                editable: true
+                options:
+                  path: /var/lib/grafana/dashboards/default
+        dashboards:
+          default:
+            kubernetes-cluster-monitoring:
+              gnetId: 7249
+              revision: 1
+              datasource: Prometheus
+            node-exporter:
+              gnetId: 1860
+              revision: 31
+              datasource: Prometheus
+            kubernetes-pods:
+              gnetId: 6417
+              revision: 1
+              datasource: Prometheus
+        serviceMonitor:
+          enabled: true
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
