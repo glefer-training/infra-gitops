@@ -18,7 +18,7 @@ spec:
         policy: sync
         txtOwnerId: argocd
         domainFilters:
-          - example.com
+          - glefer.fr
         sources:
           - ingress
         ovh:
