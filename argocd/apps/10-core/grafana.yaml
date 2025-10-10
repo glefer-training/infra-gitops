@@ -53,17 +53,25 @@ spec:
                   path: /var/lib/grafana/dashboards/default
         dashboards:
           default:
+            # Dashboard optimisé pour kube-prometheus-stack
             kubernetes-cluster-monitoring:
-              gnetId: 7249
+              gnetId: 15757
+              revision: 37
+              datasource: Prometheus
+            # Dashboard K8s cluster summary
+            kubernetes-cluster-summary:
+              gnetId: 8588
               revision: 1
               datasource: Prometheus
+            # Node Exporter (compatible)
             node-exporter:
               gnetId: 1860
               revision: 31
               datasource: Prometheus
+            # K8s Pods monitoring
             kubernetes-pods:
-              gnetId: 6417
-              revision: 1
+              gnetId: 15760
+              revision: 16
               datasource: Prometheus
         serviceMonitor:
           enabled: true
