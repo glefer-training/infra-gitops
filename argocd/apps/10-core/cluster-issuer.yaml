@@ -2,11 +2,12 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-staging
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    #server: https://acme-v02.api.letsencrypt.org/directory
-    email: votreadresse@email.fr # Remplace par ton email
+    email: contact@glefer.fr
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
