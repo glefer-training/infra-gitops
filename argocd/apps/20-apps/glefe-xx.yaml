@@ -35,10 +35,8 @@ kind: Ingress
 metadata:
   name: nginx
   annotations:
-    # Traefik annotations pour HTTP/3 et sécurité
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    # External DNS et cert-manager (inchangés)
     external-dns.alpha.kubernetes.io/hostname: cv.glefer.fr
     cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:

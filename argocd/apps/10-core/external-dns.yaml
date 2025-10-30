@@ -23,7 +23,8 @@ spec:
           - ingress
         ovh:
           endpoint: ovh-eu
-          secretName: ovh-credentials
+          secretName: ovh-credentials    
+        logLevel: debug
   destination:
     server: https://kubernetes.default.svc
     namespace: external-dns
