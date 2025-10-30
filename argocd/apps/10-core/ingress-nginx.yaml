@@ -25,7 +25,7 @@ spec:
               metallb.universe.tf/allow-shared-ip: "ingress-nginx"
           config:
             # Temporairement désactiver HTTP/3 pour debug
-            # enable-quic: "true"
+            enable-quic: "true"
             use-http2: "true"
             ssl-protocols: "TLSv1.2 TLSv1.3"
             # Logs pour debug
