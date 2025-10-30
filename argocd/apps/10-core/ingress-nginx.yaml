@@ -14,8 +14,47 @@ spec:
         controller:
           service:
             type: LoadBalancer
+          config:
+            # Activer HTTP/3 (QUIC)
+            enable-quic: "true"
+            # Activer HTTP/2
+            use-http2: "true"
+            # Configuration SSL pour HTTP/3
+            ssl-protocols: "TLSv1.2 TLSv1.3"
+            # Header Alt-Svc pour annoncer HTTP/3
+            http3-hsts-max-age: "63072000"
+          # Exposer le port UDP 443 pour QUIC
+          service:
+            ports:
+              http: 80
+              https: 443
+              # Port UDP pour HTTP/3/QUIC
+              http3: 443
+            targetPorts:
+              http: http
+              https: https
+              http3: http3
+          # Annotations pour le LoadBalancer
+          service:
+            annotations:
+              # Pour exposer UDP (nécessaire selon votre provider)
+              service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+              # ou pour OVH/autres providers
+              metallb.universe.tf/allow-shared-ip: "ingress-nginx"
+          # Activer les métriques
           metrics:
             enabled: true
+            serviceMonitor:
+              enabled: true
+          # Configuration des ports dans le conteneur
+          containerPort:
+            http: 80
+            https: 443
+            http3: 443
+          # Variables d'environnement pour HTTP/3
+          extraEnvs:
+            - name: ENABLE_QUIC
+              value: "true"
   destination:
     server: https://kubernetes.default.svc
     namespace: ingress-nginx

@@ -35,6 +35,8 @@ kind: Ingress
 metadata:
   name: nginx
   annotations:
+    nginx.ingress.kubernetes.io/http3: "true"
+    nginx.ingress.kubernetes.io/ssl-protocols: "TLSv1.2 TLSv1.3"
     external-dns.alpha.kubernetes.io/hostname: cv.glefer.fr
     cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
