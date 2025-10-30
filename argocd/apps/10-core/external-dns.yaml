@@ -21,6 +21,8 @@ spec:
           - glefer.fr
         sources:
           - ingress
+        ingressClassFilters:
+          - traefik
         ovh:
           endpoint: ovh-eu
           secretName: ovh-credentials    
