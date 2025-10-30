@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: glefer/cv:sha-main-faf3261
+        image: glefer/cv:sha-main-967afbc
         ports:
         - containerPort: 80
 ---
