@@ -20,8 +20,10 @@ spec:
           size: 10Gi
         ingress:
           enabled: true
-          ingressClassName: nginx
+          ingressClassName: traefik
           annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            traefik.ingress.kubernetes.io/router.tls: "true"
             cert-manager.io/cluster-issuer: letsencrypt-production
             nginx.ingress.kubernetes.io/ssl-redirect: "true"
           hosts:
