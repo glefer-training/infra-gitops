@@ -4,4 +4,13 @@ metadata:
   name: nginx
 spec:
   rules:
-  - host: cv-staging.glefer.fr
+  - host: staging.cv.glefer.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx
+            port:
+              number: 80
