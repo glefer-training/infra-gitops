@@ -7,6 +7,6 @@ spec:
     matchLabels:
       app: nginx-prometheus-exporter
   endpoints:
-  - port: 9113
+  - port: "9113"
     interval: 30s
     path: /metrics
