@@ -28,3 +28,11 @@ configMapGenerator:
     literals:
       - hostname=prod.cv.glefer.fr
       - secretName=prod-nginx-tls
+
+replicas:
+  - name: nginx
+    count: 2
+
+images:
+  - name: glefer/cv
+    newTag: sha-main-9b13a3f

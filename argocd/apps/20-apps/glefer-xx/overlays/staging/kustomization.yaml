@@ -28,3 +28,11 @@ configMapGenerator:
     literals:
       - hostname=staging.cv.glefer.fr
       - secretName=staging-nginx-tls
+
+replicas:
+  - name: nginx
+    count: 1
+
+images:
+  - name: glefer/cv
+    newTag: sha-main-9b13a3f

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-config
+data:
+  app: nginx
+  image: glefer/cv:sha-main-9b13a3f
+  port: "80"

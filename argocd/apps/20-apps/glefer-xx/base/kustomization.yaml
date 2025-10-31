@@ -2,3 +2,11 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
+  - common-config.yaml
+
+commonLabels:
+  app.kubernetes.io/name: nginx
+  app.kubernetes.io/component: web
+
+commonAnnotations:
+  app.kubernetes.io/version: "1.0.0"
