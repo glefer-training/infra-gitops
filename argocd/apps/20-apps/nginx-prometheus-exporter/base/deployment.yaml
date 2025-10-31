@@ -16,6 +16,6 @@ spec:
       - name: exporter
         image: nginx/nginx-prometheus-exporter:latest
         args:
-          - -nginx.scrape-uri=http://nginx.default.svc.cluster.local:80/stub_status
+          - --nginx.scrape-uri=http://nginx:80/stub_status
         ports:
         - containerPort: 9113

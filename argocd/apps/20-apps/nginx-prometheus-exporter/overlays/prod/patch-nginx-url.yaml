@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-prometheus-exporter
+spec:
+  template:
+    spec:
+      containers:
+      - name: exporter
+        args:
+          - --nginx.scrape-uri=http://prod-nginx:80/stub_status

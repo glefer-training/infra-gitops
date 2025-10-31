@@ -1,3 +1,8 @@
 resources:
   - ../../base
 namePrefix: prod-
+patches:
+  - path: patch-nginx-url.yaml
+    target:
+      kind: Deployment
+      name: nginx-prometheus-exporter

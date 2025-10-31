@@ -3,6 +3,7 @@ resources:
   - service.yaml
   - ingress.yaml
   - common-config.yaml
+  - nginx-config.yaml
 
 commonAnnotations:
   app.kubernetes.io/version: "1.0.0"
