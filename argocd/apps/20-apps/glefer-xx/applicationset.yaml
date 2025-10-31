@@ -13,16 +13,16 @@ spec:
             namespace: prod
   template:
     metadata:
-      name: glefer-xx-{{.env}}
+      name: 'glefer-xx-{{env}}'
     spec:
       project: default
       source:
         repoURL: https://github.com/glefer-training/infra-gitops.git
-        path: argocd/apps/20-apps/glefer-xx/overlays/{{.env}}
+        path: 'argocd/apps/20-apps/glefer-xx/overlays/{{env}}'
         targetRevision: main
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.namespace}}'
+        namespace: '{{namespace}}'
       syncPolicy:
         automated:
           prune: true
