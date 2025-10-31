@@ -31,7 +31,7 @@ configMapGenerator:
 
 replicas:
   - name: nginx
-    count: 2
+    count: 3
 
 images:
   - name: glefer/cv
