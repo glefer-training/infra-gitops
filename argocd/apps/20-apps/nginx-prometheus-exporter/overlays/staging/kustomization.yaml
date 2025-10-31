@@ -1,8 +1,9 @@
 resources:
   - ../../base
 namePrefix: staging-
-patches:
-  - path: patch-nginx-url.yaml
-    target:
+patchesJson6902:
+  - target:
+      version: v1
       kind: Deployment
       name: nginx-prometheus-exporter
+    path: patch-nginx-url.yaml
