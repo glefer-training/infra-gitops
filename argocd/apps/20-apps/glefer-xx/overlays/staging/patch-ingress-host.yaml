@@ -14,3 +14,7 @@ spec:
             name: nginx
             port:
               number: 80
+  tls:
+  - hosts:
+    - staging.cv.glefer.fr
+    secretName: staging-nginx-tls

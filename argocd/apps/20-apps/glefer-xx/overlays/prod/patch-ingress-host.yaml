@@ -14,3 +14,7 @@ spec:
             name: nginx
             port:
               number: 80
+  tls:
+  - hosts:
+    - prod.cv.glefer.fr
+    secretName: prod-nginx-tls
