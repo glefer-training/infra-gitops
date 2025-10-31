@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: glefer-xx
+spec:
+  generators:
+    - list:
+        elements:
+          - env: staging
+            namespace: staging
+          - env: prod
+            namespace: prod
+  template:
+    metadata:
+      name: glefer-xx-{{env}}
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/glefer-training/infra-gitops.git
+        path: argocd/apps/20-apps/glefer-xx/overlays/{{env}}
+        targetRevision: main
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: {{namespace}}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

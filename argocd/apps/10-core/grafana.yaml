@@ -75,6 +75,10 @@ spec:
               gnetId: 15760
               revision: 16
               datasource: Prometheus
+            nginx-prometheus:
+              gnetId: 12708
+              revision: 2
+              datasource: Prometheus
         serviceMonitor:
           enabled: true
         resources:
