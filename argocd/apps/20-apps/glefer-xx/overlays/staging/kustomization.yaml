@@ -35,4 +35,4 @@ replicas:
 
 images:
   - name: glefer/cv
-    newTag: sha-main-9b13a3f
+    newTag: sha-main-4663a2e
