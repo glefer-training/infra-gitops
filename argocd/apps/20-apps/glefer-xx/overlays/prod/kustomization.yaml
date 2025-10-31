@@ -2,4 +2,7 @@ resources:
   - ../../base
 namePrefix: prod-
 patches:
-  - patch-ingress-host.yaml
+  - path: patch-ingress-host.yaml
+    target:
+      kind: Ingress
+      name: nginx
