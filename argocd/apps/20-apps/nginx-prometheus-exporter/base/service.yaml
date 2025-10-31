@@ -6,6 +6,7 @@ spec:
   selector:
     app: nginx-prometheus-exporter
   ports:
-    - protocol: TCP
+    - name: metrics
+      protocol: TCP
       port: 9113
       targetPort: 9113
