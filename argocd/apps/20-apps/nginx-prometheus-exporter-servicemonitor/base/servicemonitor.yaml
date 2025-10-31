@@ -8,6 +8,8 @@ spec:
   selector:
     matchLabels:
       app: nginx-prometheus-exporter
+  namespaceSelector:
+    any: true
   endpoints:
   - port: metrics
     interval: 30s
