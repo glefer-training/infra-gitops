@@ -1,8 +1,30 @@
 resources:
   - ../../base
 namePrefix: prod-
-patches:
-  - path: patch-ingress-host.yaml
-    target:
-      kind: Ingress
-      name: nginx
+replacements:
+  - source:
+      kind: ConfigMap
+      name: env-config
+      fieldPath: data.hostname
+    targets:
+      - select:
+          kind: Ingress
+          name: nginx
+        fieldPaths:
+          - spec.rules.0.host
+          - spec.tls.0.hosts.0
+  - source:
+      kind: ConfigMap
+      name: env-config
+      fieldPath: data.secretName
+    targets:
+      - select:
+          kind: Ingress
+          name: nginx
+        fieldPaths:
+          - spec.tls.0.secretName
+configMapGenerator:
+  - name: env-config
+    literals:
+      - hostname=prod.cv.glefer.fr
+      - secretName=prod-nginx-tls
