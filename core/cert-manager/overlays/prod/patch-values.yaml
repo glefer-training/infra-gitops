@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+spec:
+  replicas: 2
+  template:
+    spec:
+      containers:
+        - name: cert-manager
+          args:
+            - --v=3
+            - --enable-certificate-owner-ref=true
+            - --cluster-resource-namespace=$(POD_NAMESPACE)
+            - --leader-election-namespace=$(POD_NAMESPACE)

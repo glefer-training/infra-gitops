@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: core
+  namespace: argocd
+spec:
+  description: "Core infrastructure components"
+  destinations:
+    - namespace: '*'
+      server: 'https://kubernetes.default.svc'
+  sourceRepos:
+    - 'https://github.com/glefer-training/infra-gitops.git'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
