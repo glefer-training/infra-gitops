@@ -13,9 +13,9 @@ spec:
     path: argocd/apps/20-apps
     directory:
       recurse: true
-      include: |
-        **/application*.yaml
-        **/applicationset*.yaml
+      exclude: |
+        **/base/**
+        **/overlays/**
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
