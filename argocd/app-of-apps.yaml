@@ -11,8 +11,6 @@ spec:
     path: argocd/apps
     directory:
       recurse: true
-      include: |
-        **/application*.yaml
       exclude: |
         **/base/**
         **/overlays/**
