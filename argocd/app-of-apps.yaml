@@ -9,6 +9,8 @@ spec:
     repoURL: https://github.com/glefer-training/infra-gitops.git
     targetRevision: main
     path: argocd/apps
+    include: |
+      **/application*.yaml
     directory:
       recurse: true
       exclude: |
