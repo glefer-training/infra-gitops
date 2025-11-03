@@ -1,16 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: infra-root
+  name: business-apps
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:
     repoURL: https://github.com/glefer-training/infra-gitops.git
     targetRevision: main
-    path: argocd/bootstrap/applications
+    path: argocd/apps/20-apps
     directory:
-      recurse: false
+      recurse: true
+      include: |
+        **/application*.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
