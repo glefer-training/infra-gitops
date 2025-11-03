@@ -2,8 +2,6 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: nginx-prometheus-exporter
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
   labels:
     release: prometheus
 spec:
