@@ -1,7 +1,40 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: core
+  name: core-base
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/glefer-training/infra-gitops.git
+        revision: main
+        directories:
+          - path: core/*
+  template:
+    metadata:
+      name: '{{path.basename}}'
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{path.basename | regexFind "[0-9]+" | default "0"}}'
+    spec:
+      project: core
+      source:
+        repoURL: https://github.com/glefer-training/infra-gitops.git
+        targetRevision: main
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: core-overlays
   namespace: argocd
 spec:
   generators:
@@ -14,7 +47,7 @@ spec:
     metadata:
       name: '{{path[1]}}-{{path.basename}}'
       annotations:
-        argocd.argoproj.io/sync-wave: "0"
+        argocd.argoproj.io/sync-wave: '{{path[1] | regexFind "[0-9]+" | default "0"}}'
     spec:
       project: core
       source:
@@ -23,8 +56,7 @@ spec:
         path: '{{path}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path[1]}}-{{path.basename}}'
-        # namespace: '{{path.basename}}'
+        namespace: '{{path[1]}}'
       syncPolicy:
         automated:
           prune: true

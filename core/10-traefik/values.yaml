@@ -1,0 +1,87 @@
+# Configuration des ports avec HTTP/3
+ports:
+  web:
+    port: 8000
+    expose:
+      default: true
+    exposedPort: 80
+    protocol: TCP
+  websecure:
+    port: 8443
+    expose:
+      default: true
+    exposedPort: 443
+    protocol: TCP
+    http3:
+      enabled: true
+    tls:
+      enabled: true
+
+# Service LoadBalancer avec MetalLB
+service:
+  type: LoadBalancer
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "traefik"
+
+# Configuration globale
+globalArguments:
+  - --global.checkNewVersion=false
+  - --global.sendAnonymousUsage=false
+
+# Arguments additionnels pour HTTP/3
+additionalArguments:
+  - --entrypoints.websecure.http3
+  - --entrypoints.websecure.http3.advertisedport=443
+  - --log.level=INFO
+  - --accesslog=true
+  - --accesslog.bufferingsize=100
+
+# Métriques Prometheus
+metrics:
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: false
+
+# Health checks
+readinessProbe:
+  failureThreshold: 1
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 2
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 2
+
+# Resources
+resources:
+  requests:
+    cpu: 100m
+    memory: 50Mi
+  limits:
+    cpu: 300m
+    memory: 150Mi
+
+# Sécurité
+securityContext:
+  capabilities:
+    drop: [ALL]
+  runAsNonRoot: true
+  runAsUser: 65532
+  runAsGroup: 65532
+  readOnlyRootFilesystem: true
+
+# Configuration des providers
+providers:
+  kubernetesCRD:
+    enabled: true
+    allowCrossNamespace: true
+  kubernetesIngress:
+    enabled: true
+    allowExternalNameServices: true
+    publishedService:
+      enabled: true
